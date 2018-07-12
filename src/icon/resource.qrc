@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>snail.png</file>
+        <file>drafts.png</file>
+        <file>inbox.png</file>
+        <file>sent.png</file>
+    </qresource>
+</RCC>
