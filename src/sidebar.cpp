@@ -18,7 +18,8 @@ Sidebar::Sidebar(QWidget *parent) : QDockWidget(parent)
     addAction(tr("Inbox"), QIcon(":/icons/inbox.png"));
     addAction(tr("Sent"), QIcon(":/icons/sent.png"));
     addAction(tr("Drafts"), QIcon(":/icons/drafts.png"));
-    addAction(tr("Testing"), QIcon(":/icons/drafts.png"));
+    addAction(tr("Penpals"), QIcon(":/icons/world.png"));
+    addAction(tr("Me"), QIcon(":/icons/boy.png"));
 
     checkedAct = actList[0];
     hoveredAct = NULL;
@@ -42,7 +43,7 @@ QAction *Sidebar::actionAt(const QPoint &point)
         }
         posY += 50;
         if(i == 2) {
-            posY += 100;
+            posY += 50;
         }
     }
 
@@ -107,7 +108,13 @@ void Sidebar::paintMenu(QPainter &painter, QPaintEvent *event)
 
         posY += 50;
         if(i == 2) {
-            posY += 100;
+            QPen checkedPen;  // creates a default pen
+            checkedPen.setWidth(2);
+            checkedPen.setBrush(Qt::green);
+            painter.setPen(checkedPen);
+            painter.drawLine(0, 285, 200, 285);
+
+            posY += 50;
         }
     }
 }
@@ -128,10 +135,10 @@ void Sidebar::mousePressEvent(QMouseEvent *event)
 
     //specify the sidebar clickable area,
     //so to make sure that the sidebar menu will only change in the clickable area
-    if(event->pos().y() >= 110 && event->pos().y() <= 310) {
+    if(event->pos().y() >= 110 && event->pos().y() <= 260) {
         checkedAct = action;
     }
-    if(event->pos().y() >= 310) {
+    if(event->pos().y() >= 310 && event->pos().y() <= 410) {
         checkedAct = action;
     }
     if(checkedAct != NULL) {

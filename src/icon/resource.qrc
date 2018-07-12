@@ -4,5 +4,8 @@
         <file>drafts.png</file>
         <file>inbox.png</file>
         <file>sent.png</file>
+        <file>boy.png</file>
+        <file>girl.png</file>
+        <file>world.png</file>
     </qresource>
 </RCC>
