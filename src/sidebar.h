@@ -18,6 +18,8 @@ private:
 
     QAction *addAction(const QString &, const QIcon &);
     QAction *actionAt(const QPoint &);
+    void paintLogo(QPainter &);
+    void paintMenu(QPainter &, QPaintEvent *);
 
 signals:
     void actionChanged(int);

@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->setMinimumSize(500, 800);
+
     createSidebar();
 }
 

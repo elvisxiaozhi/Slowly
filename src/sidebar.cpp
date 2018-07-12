@@ -18,6 +18,7 @@ Sidebar::Sidebar(QWidget *parent) : QDockWidget(parent)
     addAction(tr("Inbox"), QIcon(":/icons/inbox.png"));
     addAction(tr("Sent"), QIcon(":/icons/sent.png"));
     addAction(tr("Drafts"), QIcon(":/icons/drafts.png"));
+    addAction(tr("Testing"), QIcon(":/icons/drafts.png"));
 
     checkedAct = actList[0];
     hoveredAct = NULL;
@@ -34,25 +35,39 @@ QAction *Sidebar::addAction(const QString &text, const QIcon &icon)
 QAction *Sidebar::actionAt(const QPoint &point)
 {
     int posY = 110;
-    for(auto action : actList) {
+    for(int i = 0; i < actList.size(); ++i) {
         QRect actRect(0, posY, 195, 50); //set width to 195 and height to 50, or the hover effect will sometimes show and the checked effect will disappear
         if(actRect.contains(point)) {
-            return action;
+            return actList[i];
         }
         posY += 50;
+        if(i == 2) {
+            posY += 100;
+        }
     }
+
     return NULL;
 }
 
-void Sidebar::paintEvent(QPaintEvent *event)
+void Sidebar::paintLogo(QPainter &painter)
 {
-    QPainter painter(this);
+    //paint the title and it has to be after menu is drew
+    painter.setPen(QColor(255, 255, 255));
+    painter.setFont(QFont("Futura", 20));
+    painter.fillRect(QRect(0, 0, 200, 80), QColor(0, 255, 0)); //paint rect first
+    painter.drawText(QRect(75, 20, 100, 50), "Slowly"); //then draw text on the rect, or text will not show
 
-    //draw menu
-    painter.fillRect(rect(), QColor(240, 248, 255)); //set background color
+    //paint icon, icon must be piant after paint rect bg color
+    QIcon icon(":/icons/snail.png");
+    QRect iconRect(30, 25, 35, 35);
+    icon.paint(&painter, iconRect);
+}
+
+void Sidebar::paintMenu(QPainter &painter, QPaintEvent *event)
+{
     int posY = 110;
-    for(auto action : actList) {
-        if(action == checkedAct) {
+    for(int i = 0; i < actList.size(); ++i) {
+        if(actList[i] == checkedAct) {
             QPen checkedPen;  // creates a default pen
             checkedPen.setWidth(5);
             checkedPen.setBrush(Qt::red);
@@ -64,7 +79,7 @@ void Sidebar::paintEvent(QPaintEvent *event)
             painter.setPen(QColor(102,102,102));
         }
         else {
-            if(action == hoveredAct) {
+            if(actList[i] == hoveredAct) {
                 QFont uncheckedFont("Times", 10, QFont::Bold);
                 painter.setFont(uncheckedFont);
 
@@ -84,25 +99,27 @@ void Sidebar::paintEvent(QPaintEvent *event)
             }
         }
 
-        QIcon icon(action->icon());
+        QIcon icon(actList[i]->icon());
         QRect iconRect(10, posY, 30, 30);
         icon.paint(&painter, iconRect);
         QRect textRect(50, posY + 10, event->rect().width(), event->rect().height());
-        painter.drawText(textRect, action->text());
+        painter.drawText(textRect, actList[i]->text());
 
         posY += 50;
+        if(i == 2) {
+            posY += 100;
+        }
     }
+}
 
-    //paint the title and it has to be after menu is drew
-    painter.setPen(QColor(255, 255, 255));
-    painter.setFont(QFont("Futura", 20));
-    painter.fillRect(QRect(0, 0, 200, 80), QColor(0, 255, 0)); //paint rect first
-    painter.drawText(QRect(75, 20, 100, 50), "Slowly"); //then draw text on the rect, or text will not show
+void Sidebar::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
 
-    //paint icon, icon must be piant after paint rect bg color
-    QIcon icon(":/icons/snail.png");
-    QRect iconRect(30, 25, 35, 35);
-    icon.paint(&painter, iconRect);
+    painter.fillRect(rect(), QColor(240, 248, 255)); //set background color
+
+    paintLogo(painter);
+    paintMenu(painter, event);
 }
 
 void Sidebar::mousePressEvent(QMouseEvent *event)
@@ -112,6 +129,9 @@ void Sidebar::mousePressEvent(QMouseEvent *event)
     //specify the sidebar clickable area,
     //so to make sure that the sidebar menu will only change in the clickable area
     if(event->pos().y() >= 110 && event->pos().y() <= 310) {
+        checkedAct = action;
+    }
+    if(event->pos().y() >= 310) {
         checkedAct = action;
     }
     if(checkedAct != NULL) {
