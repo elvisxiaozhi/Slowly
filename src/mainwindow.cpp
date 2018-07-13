@@ -7,9 +7,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    this->setMinimumSize(500, 800);
+    setFixedSize(1250, 800);
 
     createSidebar();
+    createContWindow();
 }
 
 MainWindow::~MainWindow()
@@ -21,4 +22,14 @@ void MainWindow::createSidebar()
 {
     sidebar = new Sidebar(this);
     addDockWidget(Qt::LeftDockWidgetArea, sidebar);
+}
+
+void MainWindow::createContWindow()
+{
+    setCentralWidget(ui->widget);
+
+    titleBar = new TitleBar(this);
+
+    ui->vLayout->addWidget(titleBar);
+    ui->vLayout->addStretch();
 }
