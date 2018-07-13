@@ -23,6 +23,8 @@ Sidebar::Sidebar(QWidget *parent) : QDockWidget(parent)
 
     checkedAct = actList[0];
     hoveredAct = NULL;
+
+    inboxNum = 2;
 }
 
 QAction *Sidebar::addAction(const QString &text, const QIcon &icon)
@@ -119,6 +121,15 @@ void Sidebar::paintMenu(QPainter &painter, QPaintEvent *event)
     }
 }
 
+void Sidebar::paintStatus(QPainter &painter)
+{
+    if(inboxNum > 0) {
+        QRect textRect(150, 120, 30, 30);
+        painter.setPen(Qt::red);
+        painter.drawText(textRect, QString::number(inboxNum));
+    }
+}
+
 void Sidebar::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
@@ -127,6 +138,7 @@ void Sidebar::paintEvent(QPaintEvent *event)
 
     paintLogo(painter);
     paintMenu(painter, event);
+    paintStatus(painter);
 }
 
 void Sidebar::mousePressEvent(QMouseEvent *event)

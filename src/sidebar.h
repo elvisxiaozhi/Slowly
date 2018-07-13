@@ -15,11 +15,13 @@ private:
     QList<QAction *> actList;
     QAction *checkedAct;
     QAction *hoveredAct;
+    int inboxNum;
 
     QAction *addAction(const QString &, const QIcon &);
     QAction *actionAt(const QPoint &);
     void paintLogo(QPainter &);
     void paintMenu(QPainter &, QPaintEvent *);
+    void paintStatus(QPainter &);
 
 signals:
     void actionChanged(int);
