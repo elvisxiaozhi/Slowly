@@ -94,8 +94,6 @@ void TitleBar::paintEvent(QPaintEvent *event)
 
 void TitleBar::mousePressEvent(QMouseEvent *event)
 {
-//    startPos = event->pos();
-
     if (event->buttons().testFlag(Qt::LeftButton)) //use the native windows api, the issue that window suddently move will not show, do not know why
     {
         HWND hWnd = ::GetAncestor((HWND)(window()->windowHandle()->winId()), GA_ROOT);
@@ -116,14 +114,6 @@ void TitleBar::mousePressEvent(QMouseEvent *event)
 
 void TitleBar::mouseMoveEvent(QMouseEvent *event)
 {
-//    if(event->buttons() == Qt::LeftButton) {
-//        QPoint delta = event->pos() - startPos;
-//        QWidget *w = window();
-//        if(w) {
-//            w->move(w->pos()+ delta);
-//        }
-//    }
-
     if(event->x() < 960 && event->x() >= 915) {
         hoveredOnNotify = true;
     }
