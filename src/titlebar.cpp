@@ -37,7 +37,7 @@ QAction *TitleBar::actionAt(const QPoint &point)
     for(auto action : actList) {
         //35, 35 or whatever it fits, they have to be less than its width and height 45, 45
         //or sometimes the hover effect will stay
-        QRect actRect(posX, 8, 35, 35);
+        QRect actRect(posX, 0, 35, 35);
         if(actRect.contains(point)) {
             return action;
         }
@@ -65,7 +65,7 @@ void TitleBar::paintEvent(QPaintEvent *event)
             painter.setPen(QColor(255,255,255)); //change text color when hover
 
             if(action->text() == userName) {
-                painter.fillRect(QRect(880, 0, 80, 45), QColor(0, 255, 255));
+                painter.fillRect(QRect(960 - (userName.size() + 2) * 8, 0, (userName.size() + 2) * 8, 45), QColor(0, 255, 0));
             }
             if(action->text() == "—") {
                 painter.fillRect(QRect(960, 0, 45, 45), QColor(0,255,255)); //set background color
@@ -82,7 +82,7 @@ void TitleBar::paintEvent(QPaintEvent *event)
             painter.setPen(QColor(25,25,25));
             QFont userNamefont("Times", 8);
             painter.setFont(userNamefont);
-            QRect textRect(893, 15, event->rect().width(), event->rect().height());
+            QRect textRect(960 - userName.size() * 8 - 5, 15, event->rect().width(), event->rect().height());
             painter.drawText(textRect, action->text());
         }
         else {
