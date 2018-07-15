@@ -13,10 +13,13 @@ TitleBar::TitleBar(QWidget *parent) : QWidget(parent)
     checkedAct = NULL;
     hoveredAct = NULL;
 
+    userName = "Theodore";
+
+    addAction(userName, QIcon(""));
     addAction("—", QIcon(""));
     addAction("×", QIcon(""));
 
-    setStyleSheet("QWidget { background-color: #F3D6E4; }");
+    setStyleSheet("QWidget { background-color: white; }");
     setFixedSize(1050, 45);
 }
 
@@ -30,7 +33,7 @@ QAction *TitleBar::addAction(const QString &text, const QIcon &icon)
 
 QAction *TitleBar::actionAt(const QPoint &point)
 {
-    int posX = 960;
+    int posX = 915;
     for(auto action : actList) {
         //35, 35 or whatever it fits, they have to be less than its width and height 45, 45
         //or sometimes the hover effect will stay
@@ -55,16 +58,15 @@ void TitleBar::paintEvent(QPaintEvent *event)
     QFont font("Times", 13);
     painter.setFont(font);
 
-    int posX = 960 + 12; //move the icon to the center, so + 12
+    int posX = 915 + 12; //move the icon to the center, so + 12
+
     for(auto action : actList) {
         if(action == hoveredAct) {
-            QPen hoveredPen;
-            hoveredPen.setWidth(5);
-            hoveredPen.setBrush(QColor(255, 0, 0));
-            painter.setPen(hoveredPen);
-
             painter.setPen(QColor(255,255,255)); //change text color when hover
 
+            if(action->text() == userName) {
+                painter.fillRect(QRect(880, 0, 80, 45), QColor(0, 255, 255));
+            }
             if(action->text() == "—") {
                 painter.fillRect(QRect(960, 0, 45, 45), QColor(0,255,255)); //set background color
             }
@@ -76,20 +78,21 @@ void TitleBar::paintEvent(QPaintEvent *event)
             painter.setPen(QColor(128,128,128)); //change the text color to normal grey when not hover
         }
 
-        QRect textRect(posX, 8, event->rect().width(), event->rect().height());
-        painter.drawText(textRect, action->text());
+        if(action->text() == userName) {
+            painter.setPen(QColor(25,25,25));
+            QFont userNamefont("Times", 8);
+            painter.setFont(userNamefont);
+            QRect textRect(893, 15, event->rect().width(), event->rect().height());
+            painter.drawText(textRect, action->text());
+        }
+        else {
+            painter.setFont(font);
+            QRect textRect(posX, 8, event->rect().width(), event->rect().height());
+            painter.drawText(textRect, action->text());
+        }
 
         posX += 45;
     }
-
-
-    if(hoveredOnNotify) {
-        painter.fillRect(QRect(915, 0, 45, 45), QColor(0,255,255)); //set background color
-    }
-    //paint icon
-    QIcon icon(":/icons/notification.png");
-    QRect iconRect(915 + 10, 10, 25, 25); //plus 12, so the icon can align center
-    icon.paint(&painter, iconRect);
 }
 
 void TitleBar::mousePressEvent(QMouseEvent *event)
@@ -109,18 +112,10 @@ void TitleBar::mousePressEvent(QMouseEvent *event)
         int index = std::find(actList.begin(), actList.end(), checkedAct) - actList.begin();
         emit actionChanged(index);
     }
-//    update(); //update must be in the last, or the window will suddently move to another place
 }
 
 void TitleBar::mouseMoveEvent(QMouseEvent *event)
 {
-    if(event->x() < 960 && event->x() >= 915) {
-        hoveredOnNotify = true;
-    }
-    else {
-        hoveredOnNotify = false;
-    }
-
     QAction *action = actionAt(event->pos());
     hoveredAct = action;
     update(); //update must be in the last, or the window will suddently move to another place

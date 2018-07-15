@@ -2,6 +2,7 @@
 #include "ui_widget.h"
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QDebug>
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -29,8 +30,22 @@ void Widget::createSidebar()
 
 void Widget::createTitlebar()
 {
+    setWindowFlags(Qt::Window | Qt::FramelessWindowHint); //hide original title bar
+
     titlebar = new TitleBar(this);
 
     ui->contVLayout->addWidget(titlebar);
     ui->contVLayout->addStretch();
+
+    connect(titlebar, &TitleBar::actionChanged, this, &Widget::titlebarActChanged);
+}
+
+void Widget::titlebarActChanged(int index)
+{
+    if(index == 1) {
+        this->showMinimized();
+    }
+    if(index == 2) {
+        this->close();
+    }
 }

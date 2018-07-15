@@ -25,6 +25,9 @@ private:
 
     void createSidebar();
     void createTitlebar();
+
+private slots:
+    void titlebarActChanged(int);
 };
 
 #endif // WIDGET_H
