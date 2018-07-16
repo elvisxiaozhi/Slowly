@@ -63,54 +63,55 @@ void Sidebar::paintLogo(QPainter &painter)
 
 void Sidebar::paintMenu(QPainter &painter, QPaintEvent *event)
 {
+    QFont font("Times", 10);
+
+    QPen pen;
+
+    //paint the dividing line
+    pen.setWidth(2);
+    pen.setBrush(Qt::green);
+    painter.setPen(pen);
+    painter.drawLine(0, 285, 200, 285);
+
+    pen.setWidth(5);
+
     int posY = 110;
+
     for(int i = 0; i < actList.size(); ++i) {
+        QIcon icon(actList[i]->icon());
+//        QRect iconRect(10, posY, 30, 30);
+        icon.paint(&painter, QRect(10, posY, 30, 30));
+
         if(actList[i] == checkedAct) {
-            QPen checkedPen;  // creates a default pen
-            checkedPen.setWidth(5);
-            checkedPen.setBrush(Qt::red);
-            painter.setPen(checkedPen);
+            pen.setBrush(Qt::red);
+            painter.setPen(pen);
             painter.drawLine(0, posY, 0, posY + 30);
 
-            QFont checkedFont("Times", 10, QFont::Bold);
-            painter.setFont(checkedFont);
-            painter.setPen(QColor(102,102,102));
+            font.setBold(true); //set the check menu font to bold
         }
         else {
             if(actList[i] == hoveredAct) {
-                QFont uncheckedFont("Times", 10, QFont::Bold);
-                painter.setFont(uncheckedFont);
-
-                QPen hoveredPen;
-                hoveredPen.setWidth(5);
-                hoveredPen.setBrush(QColor(255, 192, 203));
-                painter.setPen(hoveredPen);
+                pen.setBrush(QColor(255, 192, 203));
+                painter.setPen(pen);
                 painter.drawLine(0, posY, 0, posY + 30);
             }
             else {
-                QFont uncheckedFont("Times", 10);
-                painter.setFont(uncheckedFont);
+                pen.setBrush(QColor(128,128,128));
 
-                QPen uncheckedPen;
-                uncheckedPen.setBrush(QColor(128,128,128));
-                painter.setPen(uncheckedPen);
             }
+
+            font.setBold(false);
         }
 
-        QIcon icon(actList[i]->icon());
-        QRect iconRect(10, posY, 30, 30);
-        icon.paint(&painter, iconRect);
+        painter.setFont(font);
+
         QRect textRect(50, posY + 10, event->rect().width(), event->rect().height());
+        pen.setBrush(QColor(128,128,128));
+        painter.setPen(pen);
         painter.drawText(textRect, actList[i]->text());
 
         posY += 50;
         if(i == 2) {
-            QPen checkedPen;  // creates a default pen
-            checkedPen.setWidth(2);
-            checkedPen.setBrush(Qt::green);
-            painter.setPen(checkedPen);
-            painter.drawLine(0, 285, 200, 285);
-
             posY += 50;
         }
     }
@@ -121,6 +122,7 @@ void Sidebar::paintStatus(QPainter &painter)
     if(Inbox::inboxNum > 0) {
         QRect textRect(150, 120, 30, 30);
         painter.setPen(Qt::red);
+        painter.setFont(QFont("Times", 10)); //must set font again when painting status, or the status font will get bold sometimes
         painter.drawText(textRect, QString::number(Inbox::inboxNum));
     }
 }
