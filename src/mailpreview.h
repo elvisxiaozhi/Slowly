@@ -17,6 +17,7 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *);
+    bool event(QEvent *);
 
 private:
     Ui::MailPreview *ui;

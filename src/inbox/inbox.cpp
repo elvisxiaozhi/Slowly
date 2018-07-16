@@ -21,6 +21,9 @@ Inbox::~Inbox()
 
 void Inbox::createMail()
 {
+    QSpacerItem *spacerItem = new QSpacerItem(1, 50, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    ui->vLayout->addSpacerItem(spacerItem);
+
     mailVec.clear();
     for(int i = 0; i < inboxNum; ++i) {
         MailPreview *mail = new MailPreview(this);
