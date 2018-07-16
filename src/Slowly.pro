@@ -27,15 +27,21 @@ SOURCES += \
         main.cpp \
         widget.cpp \
     sidebar.cpp \
-    titlebar.cpp
+    titlebar.cpp \
+    inbox/inbox.cpp \
+    mailpreview.cpp
 
 HEADERS += \
         widget.h \
     sidebar.h \
-    titlebar.h
+    titlebar.h \
+    inbox/inbox.h \
+    mailpreview.h
 
 FORMS += \
-        widget.ui
+        widget.ui \
+    inbox/inbox.ui \
+    mailpreview.ui
 
 RESOURCES += \
     icon/resource.qrc

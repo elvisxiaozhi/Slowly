@@ -14,6 +14,9 @@ Widget::Widget(QWidget *parent) :
 
     createSidebar();
     createTitlebar();
+    createConts();
+
+    ui->contVLayout->addStretch();
 }
 
 Widget::~Widget()
@@ -35,9 +38,15 @@ void Widget::createTitlebar()
     titlebar = new TitleBar(this);
 
     ui->contVLayout->addWidget(titlebar);
-    ui->contVLayout->addStretch();
 
     connect(titlebar, &TitleBar::actionChanged, this, &Widget::titlebarActChanged);
+}
+
+void Widget::createConts()
+{
+    inbox = new Inbox(this);
+
+    ui->contVLayout->addWidget(inbox);
 }
 
 void Widget::titlebarActChanged(int index)

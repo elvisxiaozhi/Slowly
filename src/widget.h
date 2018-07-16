@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "sidebar.h"
 #include "titlebar.h"
+#include "inbox/inbox.h"
 
 namespace Ui {
 class Widget;
@@ -22,9 +23,11 @@ private:
 
     Sidebar *sidebar;
     TitleBar *titlebar;
+    Inbox *inbox;
 
     void createSidebar();
     void createTitlebar();
+    void createConts();
 
 private slots:
     void titlebarActChanged(int);
