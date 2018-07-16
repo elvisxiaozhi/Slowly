@@ -73,13 +73,13 @@ void Sidebar::paintMenu(QPainter &painter, QPaintEvent *event)
     painter.setPen(pen);
     painter.drawLine(0, 285, 200, 285);
 
-    pen.setWidth(5);
+    pen.setWidth(5); //reset the pen width to 5 to paint other stuff on menu
 
-    int posY = 110;
+    int posY = 110; //start to paint from 110
 
     for(int i = 0; i < actList.size(); ++i) {
+        //paint menu icon
         QIcon icon(actList[i]->icon());
-//        QRect iconRect(10, posY, 30, 30);
         icon.paint(&painter, QRect(10, posY, 30, 30));
 
         if(actList[i] == checkedAct) {
@@ -94,10 +94,6 @@ void Sidebar::paintMenu(QPainter &painter, QPaintEvent *event)
                 pen.setBrush(QColor(255, 192, 203));
                 painter.setPen(pen);
                 painter.drawLine(0, posY, 0, posY + 30);
-            }
-            else {
-                pen.setBrush(QColor(128,128,128));
-
             }
 
             font.setBold(false);
