@@ -140,12 +140,8 @@ void Sidebar::mousePressEvent(QMouseEvent *event)
 {
     QAction *action = actionAt(event->pos());
 
-    //specify the sidebar clickable area,
-    //so to make sure that the sidebar menu will only change in the clickable area
-    if(event->pos().y() >= 110 && event->pos().y() <= 260) {
-        checkedAct = action;
-    }
-    if(event->pos().y() >= 310 && event->pos().y() <= 410) {
+    //specify the sidebar clickable area, to make sure that the sidebar menu will only change in the clickable area
+    if((event->pos().y() >= 110 && event->pos().y() <= 260) || (event->pos().y() >= 310 && event->pos().y() <= 410)) {
         checkedAct = action;
     }
     if(checkedAct != NULL) {
