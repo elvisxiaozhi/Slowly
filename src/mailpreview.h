@@ -21,6 +21,8 @@ protected:
 
 private:
     Ui::MailPreview *ui;
+
+    void setWindowStyleSheet();
 };
 
 #endif // MAILPREVIEW_H

@@ -7,5 +7,6 @@
         <file>sent.png</file>
         <file>snail.png</file>
         <file>world.png</file>
+        <file>checked.png</file>
     </qresource>
 </RCC>

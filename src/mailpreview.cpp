@@ -13,7 +13,7 @@ MailPreview::MailPreview(QWidget *parent) :
 
     setMinimumSize(850, 50);
 
-    setStyleSheet("MailPreview { background: #c6e2ff; border-bottom: 1px solid red; }");
+    setWindowStyleSheet();
 }
 
 MailPreview::~MailPreview()
@@ -32,10 +32,19 @@ void MailPreview::paintEvent(QPaintEvent *)
 bool MailPreview::event(QEvent *event)
 {
     if(event->type() == QEvent::Enter) {
-        setStyleSheet("MailPreview { background: #c6e2ff; border-bottom: 1px solid #D3D3D3; }");
+//        setStyleSheet("MailPreview { background: #c6e2ff; border-bottom: 1px solid #D3D3D3; }");
     }
     if(event->type() == QEvent::Leave) {
-        setStyleSheet("MailPreview { background: #c6e2ff; border-bottom: 1px solid red; }");
+//        setStyleSheet("MailPreview { background: #c6e2ff; border-bottom: 1px solid red; }");
     }
     return QWidget::event(event);
+}
+
+void MailPreview::setWindowStyleSheet()
+{
+    setStyleSheet("MailPreview { background: #c6e2ff; border-bottom: 1px solid red; }"
+                  "QCheckBox::indicator { border: 2px solid #cccccc; border-radius: 5px; width: 18px; height: 18px; }"
+                  "QCheckBox::indicator:hover { border: 2px solid #333333; }"
+                  "QCheckBox::indicator:checked { image: url(:/icons/checked.png); border: 2px solid #333333; }"
+                  );
 }
