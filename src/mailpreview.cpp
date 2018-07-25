@@ -14,6 +14,10 @@ MailPreview::MailPreview(QWidget *parent) :
     setMinimumSize(850, 50);
 
     setWindowStyleSheet();
+
+    ui->fromLbl->setText(tr("Theo"));
+    ui->previewLbl->setText(tr("Mail Preview"));
+    ui->dateLbl->setText(tr("Jul 25"));
 }
 
 MailPreview::~MailPreview()
