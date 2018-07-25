@@ -84,6 +84,10 @@ void TitleBar::paintEvent(QPaintEvent *event)
             painter.setFont(userNamefont);
             QRect textRect(960 - userName.size() * 8 - 5, 15, event->rect().width(), event->rect().height());
             painter.drawText(textRect, action->text());
+
+            //draw the online or offline status ball
+            painter.setBrush(Qt::green);
+            painter.drawEllipse(960 - userName.size() * 8 - 10, 30, 10, 10);
         }
         else {
             painter.setFont(font);
