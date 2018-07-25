@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,14 +30,16 @@ SOURCES += \
     sidebar.cpp \
     titlebar.cpp \
     inbox/inbox.cpp \
-    mailpreview.cpp
+    mailpreview.cpp \
+    connection.cpp
 
 HEADERS += \
         widget.h \
     sidebar.h \
     titlebar.h \
     inbox/inbox.h \
-    mailpreview.h
+    mailpreview.h \
+    connection.h
 
 FORMS += \
         widget.ui \

@@ -11,13 +11,13 @@ class TitleBar : public QWidget
     Q_OBJECT
 public:
     explicit TitleBar(QWidget *parent = nullptr);
+    bool isOnline;
 
 private:
     QList<QAction *> actList;
     QAction *checkedAct;
     QAction *hoveredAct;
     QString userName;
-    bool isOnline;
 
     QAction *addAction(const QString &, const QIcon &);
     QAction *actionAt(const QPoint &);

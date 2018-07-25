@@ -12,11 +12,16 @@ Widget::Widget(QWidget *parent) :
 
     setFixedSize(1250, 800);
 
+    connection = new Connection(this);
+
     createSidebar();
     createTitlebar();
     createConts();
 
     ui->contVLayout->addStretch();
+
+    connect(connection, &Connection::connected, [this](bool connected){ titlebar->isOnline = connected; });
+    connection->connect();
 }
 
 Widget::~Widget()

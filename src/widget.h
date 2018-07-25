@@ -5,6 +5,7 @@
 #include "sidebar.h"
 #include "titlebar.h"
 #include "inbox/inbox.h"
+#include "connection.h"
 
 namespace Ui {
 class Widget;
@@ -21,6 +22,7 @@ public:
 private:
     Ui::Widget *ui;
 
+    Connection *connection;
     Sidebar *sidebar;
     TitleBar *titlebar;
     Inbox *inbox;
