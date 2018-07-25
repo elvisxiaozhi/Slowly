@@ -14,6 +14,7 @@ TitleBar::TitleBar(QWidget *parent) : QWidget(parent)
     hoveredAct = NULL;
 
     userName = "Theodore";
+    isOnline = true;
 
     addAction(userName, QIcon(""));
     addAction("—", QIcon(""));
@@ -86,7 +87,12 @@ void TitleBar::paintEvent(QPaintEvent *event)
             painter.drawText(textRect, action->text());
 
             //draw the online or offline status ball
-            painter.setBrush(Qt::green);
+            if(isOnline) {
+                painter.setBrush(Qt::green);
+            }
+            else {
+                painter.setBrush(Qt::gray);
+            }
             painter.drawEllipse(960 - userName.size() * 8 - 10, 30, 10, 10);
         }
         else {

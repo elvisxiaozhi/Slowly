@@ -17,6 +17,7 @@ private:
     QAction *checkedAct;
     QAction *hoveredAct;
     QString userName;
+    bool isOnline;
 
     QAction *addAction(const QString &, const QIcon &);
     QAction *actionAt(const QPoint &);
